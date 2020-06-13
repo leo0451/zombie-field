@@ -9,6 +9,7 @@ public class TurnManager : MonoBehaviour
     private static bool skillTurn;
     private static float startTime;
 
+
     //Bu değişkenlerle turnlerin ne kadar süreceği belirlenecek
     private static float playTurnTime = 1;
     private static float moveTurnTime = 1;

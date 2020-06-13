@@ -11,8 +11,8 @@ public class BasicZombieMovement : MonoBehaviour
     //zombinin sıradaki hareketi
     Vector3 nextDestination;
 
-    //action turn de bir kere çalışacak kod parçası için gösterici
-    bool turnFlag;
+    //MoveTurn de çalıştırılacak kod
+    Boolean moveTurnFlag;
 
     //zombinin alacağı mesafe
     float journeyLength;
@@ -21,31 +21,31 @@ public class BasicZombieMovement : MonoBehaviour
     float speed;
 
   
-    void Start()
+    void Awake()
     {
-        turnFlag = true;
+        startPosition = transform.position;
+        journeyLength = 0;
+        nextDestination = startPosition;
     }
 
     
     void Update()
-    { 
-        //tek sefer çalışacak kodlar
-        //nextdestination hesaplaması
-        if (turnFlag)
-        {
-            
-            //action turnde ilk pozisyon ayarlanıyor
+    {
+       
             startPosition = transform.position;
 
             nextDestination = CalculateNextDestination(startPosition, TurnManager.NextMove);
 
             journeyLength = Vector3.Distance(startPosition, nextDestination);
-                    
-            turnFlag = false;
-        }
 
+
+          
+
+       
+
+        ZombieBasicMove(nextDestination, startPosition, 1f, journeyLength);
         //interpolarasyonla zombi konumu ve hareketi hesaplanması
-        ZombieBasicMove(nextDestination,startPosition, 2f, journeyLength);
+
 
     }
 
@@ -61,6 +61,7 @@ public class BasicZombieMovement : MonoBehaviour
 
 
         transform.position = Vector3.Lerp(startPosition, nextDestination, fractionOfJourney);
+
     }
 
     Vector3 CalculateNextDestination(Vector3 currentPosition, Vector3 victimPosition)
